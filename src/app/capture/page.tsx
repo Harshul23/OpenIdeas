@@ -67,7 +67,7 @@ export default function CapturePage() {
 
   if (loading) {
     return (
-      <div className="bg-white">
+      <div className="bg-white min-h-screen">
         <div className="section-container py-16">
           <div className="text-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
@@ -79,7 +79,7 @@ export default function CapturePage() {
   }
 
   return (
-    <div className="bg-white">
+    <div className="bg-white min-h-screen">
       {/* Hero Section */}
       <section className="section-container py-16 lg:py-20">
         <div className="text-center mb-12">
@@ -97,7 +97,7 @@ export default function CapturePage() {
       </section>
 
       {/* Form Section */}
-      <section className="bg-gray-50 py-12">
+      <section className="py-12">
         <div className="section-container max-w-2xl mx-auto">
           <Card className="bg-white rounded-2xl border border-gray-100 shadow-sm">
             <CardHeader className="border-b border-gray-100">

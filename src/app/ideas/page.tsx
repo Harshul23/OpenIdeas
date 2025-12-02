@@ -66,7 +66,7 @@ export default function IdeasPage() {
   const statuses = ['ACTIVE', 'ARCHIVED', 'COMPLETED', 'ON_HOLD'];
 
   return (
-    <div className="bg-white">
+    <div className="bg-white min-h-screen">
       {/* Hero Section */}
       <section className="section-container py-16 lg:py-20">
         <div className="text-center mb-12">
@@ -93,7 +93,7 @@ export default function IdeasPage() {
       </section>
 
       {/* Filters Section */}
-      <section className="bg-gray-50 py-12">
+      <section className="py-12">
         <div className="section-container">
           <Card className="bg-white rounded-2xl border border-gray-100 shadow-sm">
             <CardContent className="py-5">
