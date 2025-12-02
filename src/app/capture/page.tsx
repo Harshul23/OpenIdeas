@@ -66,30 +66,35 @@ export default function CapturePage() {
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="section-container py-8">
         <div className="text-center py-12">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading...</p>
+          <p className="mt-4 text-gray-600">Loading...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-2xl">
-      <div className="mb-8 text-center">
-        <div className="text-5xl mb-4">💡</div>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+    <div className="section-container py-12 max-w-2xl mx-auto">
+      <div className="mb-10 text-center">
+        <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <svg className="w-8 h-8 text-blue-600" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M9 21h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+        <h1 className="text-3xl font-bold text-gray-900 mb-3">
           Capture Your Idea
         </h1>
-        <p className="text-gray-600 dark:text-gray-400">
+        <p className="text-gray-600">
           The first step in the idea lifecycle. Catch it before it disappears.
         </p>
       </div>
 
-      <Card>
-        <CardHeader>
-          <h2 className="font-semibold text-gray-900 dark:text-white">
+      <Card className="bg-white rounded-2xl border border-gray-100 shadow-sm">
+        <CardHeader className="border-b border-gray-100">
+          <h2 className="font-semibold text-gray-900">
             What&apos;s your idea?
           </h2>
           <p className="text-sm text-gray-500">
@@ -105,16 +110,32 @@ export default function CapturePage() {
       </Card>
 
       {/* Tips Section */}
-      <Card className="mt-8 bg-blue-50 dark:bg-blue-900/20 border-blue-100 dark:border-blue-800">
+      <Card className="mt-8 bg-blue-50 border-blue-100 rounded-2xl">
         <CardContent className="py-6">
-          <h3 className="font-semibold text-blue-800 dark:text-blue-300 mb-3">
-            💡 Tips for Capturing Ideas
+          <h3 className="font-semibold text-blue-800 mb-4 flex items-center gap-2">
+            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M9 21h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Tips for Capturing Ideas
           </h3>
-          <ul className="space-y-2 text-sm text-blue-700 dark:text-blue-400">
-            <li>• <strong>Be specific:</strong> What problem does this solve?</li>
-            <li>• <strong>Keep it simple:</strong> One core concept per idea</li>
-            <li>• <strong>Think user-first:</strong> Who benefits from this?</li>
-            <li>• <strong>No judgment:</strong> Every idea is valid at this stage</li>
+          <ul className="space-y-3 text-sm text-blue-700">
+            <li className="flex items-start gap-2">
+              <span className="text-blue-500 mt-0.5">•</span>
+              <span><strong>Be specific:</strong> What problem does this solve?</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-500 mt-0.5">•</span>
+              <span><strong>Keep it simple:</strong> One core concept per idea</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-500 mt-0.5">•</span>
+              <span><strong>Think user-first:</strong> Who benefits from this?</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-500 mt-0.5">•</span>
+              <span><strong>No judgment:</strong> Every idea is valid at this stage</span>
+            </li>
           </ul>
         </CardContent>
       </Card>
