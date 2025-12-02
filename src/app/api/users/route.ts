@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
+import bcrypt from 'bcryptjs';
 
 // GET /api/users - List all users
 export async function GET() {
@@ -51,12 +52,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // In a real app, you'd hash the password
+    // Hash password before storing
+    const hashedPassword = password ? await bcrypt.hash(password, 10) : null;
+    
     const user = await prisma.user.create({
       data: {
         email,
         name,
-        passwordHash: password, // TODO: Hash password in production
+        passwordHash: hashedPassword,
       },
       select: {
         id: true,

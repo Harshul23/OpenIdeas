@@ -93,7 +93,7 @@ export default function IdeaDetailPage({ params }: PageProps) {
 
   useEffect(() => {
     fetchIdea();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- fetchIdea is defined inside component and changes on every render, but we only want to fetch on id change
   }, [id]);
 
   const updateStage = async (newStage: IdeaStage) => {
