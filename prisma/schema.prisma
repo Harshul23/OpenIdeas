@@ -1,0 +1,147 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// User model for authentication
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  passwordHash  String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  ideas         Idea[]
+  comments      Comment[]
+}
+
+// Main Idea model following the lifecycle: Capture → Expand → Validate → Prototype → Build → Iterate
+model Idea {
+  id          String      @id @default(cuid())
+  title       String
+  description String
+  stage       String      @default("CAPTURE") // CAPTURE, EXPAND, VALIDATE, PROTOTYPE, BUILD, ITERATE
+  status      String      @default("ACTIVE") // ACTIVE, ARCHIVED, COMPLETED, ON_HOLD
+  userId      String
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Expansion data
+  expansion   Expansion?
+
+  // Validation data
+  validation  Validation?
+
+  // Prototype data
+  prototype   Prototype?
+
+  // Build data
+  build       Build?
+
+  // Iteration data
+  iterations  Iteration[]
+
+  // Tags and categories
+  tags        Tag[]
+
+  // Comments
+  comments    Comment[]
+}
+
+// Expansion model - breaking down ideas
+model Expansion {
+  id              String   @id @default(cuid())
+  ideaId          String   @unique
+  idea            Idea     @relation(fields: [ideaId], references: [id], onDelete: Cascade)
+  breakdown       String?  // Detailed breakdown of the idea
+  userStories     String?  // User stories in JSON format
+  constraints     String?  // Known constraints
+  clarityQuestions String? // Questions to clarify the idea
+  firstPrinciples String?  // First principles reasoning
+  aiSuggestions   String?  // AI-generated suggestions
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// Validation model - testing if idea makes sense
+model Validation {
+  id                String   @id @default(cuid())
+  ideaId            String   @unique
+  idea              Idea     @relation(fields: [ideaId], references: [id], onDelete: Cascade)
+  feasibilityScore  Int?     // 1-10 score
+  marketFit         String?  // Market fit analysis
+  competitorAnalysis String? // Competition analysis
+  risks             String?  // Identified risks
+  assumptions       String?  // Key assumptions to test
+  validated         Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+// Prototype model - forming structure or early design
+model Prototype {
+  id          String   @id @default(cuid())
+  ideaId      String   @unique
+  idea        Idea     @relation(fields: [ideaId], references: [id], onDelete: Cascade)
+  wireframes  String?  // UI wireframes description or links
+  workflow    String?  // Workflow drafts
+  techOutline String?  // Technical outline
+  mockups     String?  // Mockup links or descriptions
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Build model - creating working version
+model Build {
+  id            String   @id @default(cuid())
+  ideaId        String   @unique
+  idea          Idea     @relation(fields: [ideaId], references: [id], onDelete: Cascade)
+  repoUrl       String?  // Repository URL
+  deploymentUrl String?  // Deployment URL
+  techStack     String?  // Technologies used
+  milestones    String?  // Build milestones in JSON
+  progress      Int      @default(0) // 0-100 percentage
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// Iteration model - refining and improving
+model Iteration {
+  id          String   @id @default(cuid())
+  ideaId      String
+  idea        Idea     @relation(fields: [ideaId], references: [id], onDelete: Cascade)
+  version     Int      @default(1)
+  changes     String   // What was changed
+  feedback    String?  // User feedback
+  improvements String? // Planned improvements
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Tags for categorizing ideas
+model Tag {
+  id    String @id @default(cuid())
+  name  String @unique
+  color String @default("#3B82F6")
+  ideas Idea[]
+}
+
+// Comments on ideas
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  ideaId    String
+  idea      Idea     @relation(fields: [ideaId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
